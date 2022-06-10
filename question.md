@@ -58,5 +58,23 @@ asset webpack新模块
 babel-loader是一个函数，负责接收原来的内容返回新的内容，具体的转换工作需要@babel/core来做，@babel/core是一个转换代码的姻亲，但是@babe/core不知道转换规则，转换那些，需要babel-preset-env来设置规则
 
 预设是插件的集合
+mal
+## eslint
+
+webpack里面 loader有分类的
+* pre前置
+* normal 正常
+* inline 内联
+* post 后置
+
+eslint-config-aribnb
+
+## sourceMap
+
+### source-map
+
+* 生成.map文件
+* 包含行和列的信息
+* 在目标文件里建立关联，从而能提示源文件原始位置
 
 

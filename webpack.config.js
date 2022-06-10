@@ -6,6 +6,7 @@ module.exports = () => {
   return {
     // console.log(`env=${env}`)
     mode: process.env.NODE_ENV,
+    devtool: "source-map",
     entry: {
       main: "./src/index.js",
     },
@@ -77,14 +78,21 @@ module.exports = () => {
           use: {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env"],
+              presets: ["@babel/preset-env", "@babel/preset-react"],
               plugins: [
-                ["@babel/plugin-perposal-decorators", { legacy: true }],
-                ["@babel/plugin-perposal-class-properties", {loose: true}]
+                ["@babel/plugin-proposal-decorators", { legacy: true }],
+                ["@babel/plugin-proposal-class-properties", { loose: true }],
               ],
             },
           },
         },
+        // {
+        //   test: /\.jsx?$/,
+        //   loader: "eslint-loader",
+        //   options: { fix: true },
+        //   enforce: "pre",
+        //   exclude: /node_modules/,
+        // },
       ],
     },
     plugins: [
