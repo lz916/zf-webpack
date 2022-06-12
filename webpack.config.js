@@ -1,13 +1,19 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+<<<<<<< HEAD
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+=======
+const webpack = require("webpack");
+const FileManagerPlugin = require("filemanager-webpack-plugin")
+const htmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
+>>>>>>> 第三方库的引入
 module.exports = () => {
   return {
     // console.log(`env=${env}`)
     mode: process.env.NODE_ENV,
-    devtool: "source-map",
+    devtool: false,
     entry: {
       main: "./src/index.js",
     },
@@ -50,6 +56,9 @@ module.exports = () => {
           },
         },
       },
+    },
+    externals: {
+      loadsh: '_' //如果在模块内部引用过了loadsh这个模块，会从window._上取值
     },
     module: {
       rules: [
@@ -115,6 +124,16 @@ module.exports = () => {
           },
         },
         // {
+        //   test: require.resolve('loadsh'),
+        //   loader: 'export-loader',
+        //   options: {
+        //     exposes: {
+        //       globalName: '_',
+        //       override: true
+        //     }
+        //   }
+        // }
+        // {
         //   test: /\.jsx?$/,
         //   loader: "eslint-loader",
         //   options: { fix: true },
@@ -142,6 +161,37 @@ module.exports = () => {
         // 打包前把目录清口
         cleanOnceBeforeBuildPatterns: ["**/*"],
       }),
+      // 不再让webpack生成sourcemap
+      // new webpack.SourceMapDevToolPlugin({
+      //   append: `\n//# sourceMappingURL=http://127.0.0.1；8081/[url]`,
+      //   filename: '[file].map'
+      // }),
+      // new FileManagerPlugin({
+      //   events: {
+      //     onEnd: {
+      //       copy: [{
+      //         source: './dist/*.map',
+      //         destination: 'D:\code\zf-webpack\maps'
+      //       }],
+      //       delete: ['./dist/*.map']
+      //     }
+      //   }
+      // })
+      // 会自动向模块内部注入loadsh模块，在模块内部可以通过
+       // 会自动向模块内部注入loadsh模块，在模块内部可以通过_引入
+      //  new webpack.ProvidePlugin({
+      //   '_': 'loadsh'
+      // })
+      // 这个模块现在不能用了，版本冲突
+      // new htmlWebpackExternalsPlugin({
+      //   externals: [
+      //     {
+      //       module: 'loadsh',
+      //       entry: 'https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.js',
+      //       global: '_'
+      //     }
+      //   ]
+      // })
     ],
   };
 };

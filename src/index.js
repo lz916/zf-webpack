@@ -33,3 +33,12 @@
 fetch("/api/user").then((res) => {
   console.log(res);
 });
+// let a = 1;
+// let b = 2; console.log(d)
+// let c = 4
+// debugger
+// ReactDOM.render(<h1>hello</h1>, document.getElementById("root"));
+
+// import _ from 'loadsh'
+require('loadsh')
+console.log(_.join(['a, b, c'], '@'))
