@@ -1,7 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
-
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = () => {
   return {
     // console.log(`env=${env}`)
@@ -14,6 +15,13 @@ module.exports = () => {
       path: path.resolve(__dirname, "dist"),
       filename: "main.js",
     },
+    watch: true, // 开启监控模式,
+    watchOptions: {
+      ignored: /node_modules/, // 忽略变化的文件夹,
+      aggregateTimeout: 300, // 监听到变化后会等到300s再去执行，其实是一个防抖的优化
+      poll: 1000, // 轮询
+    },
+
     devServer: {
       hot: true, //配置热更新，开发环境默认开启了热更新
       // 配置额外的静态文件更目录，不用配置dist，dist本身就是
@@ -22,6 +30,26 @@ module.exports = () => {
       compress: true,
       port: 8080,
       open: true, // 启动之后自动打开浏览器
+      // before(app) {
+      //   // webpack-dev-server 本质上是一个express服务器app
+      //   app.get("/api/user", (req, res) => {
+      //     res.json([{ name: "name", age: 12 }]);
+      //   });
+      // },
+      // // 中间是处理静态资源
+      // after(app) {
+      //   app.get("/api/user", (req, res) => {
+      //     res.json([{ name: "name12", age: 12 }]);
+      //   });
+      // },
+      proxy: {
+        "/api": {
+          target: "http://localhost:3000",
+          patchRewrite: {
+            "^/api": "",
+          },
+        },
+      },
     },
     module: {
       rules: [
@@ -101,6 +129,18 @@ module.exports = () => {
       }),
       new DefinePlugin({
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      }),
+      // new CopyWebpackPlugin({
+      //   patterns: [
+      //     {
+      //       from: path.resolve(__dirname, "src/images"),
+      //       to: path.resolve(__dirname, "dist/images"),
+      //     },
+      //   ],
+      // }),
+      new CleanWebpackPlugin({
+        // 打包前把目录清口
+        cleanOnceBeforeBuildPatterns: ["**/*"],
       }),
     ],
   };

@@ -26,6 +26,10 @@
 // p.PI = 3.15;
 // // console.log(p);
 
-import React from "react";
-import ReactDOM from "react-dom";
-ReactDOM.render(<h1>hello</h1>, document.getElementById("root"));
+// import React from "react";
+// import ReactDOM from "react-dom";
+// ReactDOM.render(<h1>hello</h1>, document.getElementById("root"));
+
+fetch("/api/user").then((res) => {
+  console.log(res);
+});
