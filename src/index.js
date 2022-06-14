@@ -40,5 +40,12 @@ fetch("/api/user").then((res) => {
 // ReactDOM.render(<h1>hello</h1>, document.getElementById("root"));
 
 // import _ from 'loadsh'
-require('loadsh')
-console.log(_.join(['a, b, c'], '@'))
+require("loadsh");
+console.log(_.join(["a, b, c"], "@"));
+
+require("./index.css");
+
+const img = new Image();
+const imgSrc = require("./images/img.png");
+img.src = imgSrc;
+document.body.appendChild(img);

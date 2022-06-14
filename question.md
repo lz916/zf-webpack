@@ -140,3 +140,12 @@ eslint-config-aribnb
     * 也需要打包
 * externals
     * 通过注入外链CDN
+
+## 生产环境配置
+* 文件体积尽可能少
+* 尽可能方便缓存
+* 指定图片和css目录
+
+### 提取css
+
+* mini-css-extract-plugin 插件 在build用
