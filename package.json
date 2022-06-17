@@ -41,6 +41,8 @@
     "mini-css-extract-plugin": "^2.6.0",
     "node-less": "^1.0.0",
     "node-sass": "^7.0.1",
+    "postcss-loader": "^7.0.0",
+    "postcss-preset-env": "^7.7.1",
     "raw-loader": "^4.0.2",
     "sass-loader": "^13.0.0",
     "style-loader": "^3.3.1",

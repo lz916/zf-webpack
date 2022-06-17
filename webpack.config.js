@@ -67,15 +67,25 @@ module.exports = () => {
         },
         {
           test: /\.css$/,
-          use: [miniCssExtractPlugin.loader, "css-loader"], // 最后一个loader,就是上面最左边的loader一定要返回一个js脚本
+          use: [miniCssExtractPlugin.loader, "postcss-loader", "css-loader"], // 最后一个loader,就是上面最左边的loader一定要返回一个js脚本
         },
         {
           test: /\.less$/,
-          use: [miniCssExtractPlugin.loader, "css-loader", "less-loader"], // 最后一个loader,就是上面最左边的loader一定要返回一个js脚本
+          use: [
+            miniCssExtractPlugin.loader,
+            "postcss-loader",
+            "css-loader",
+            "less-loader",
+          ], // 最后一个loader,就是上面最左边的loader一定要返回一个js脚本
         },
         {
           test: /\.scss$/,
-          use: [miniCssExtractPlugin.loader, "css-loader", "sass-loader"], // 最后一个loader,就是上面最左边的loader一定要返回一个js脚本
+          use: [
+            miniCssExtractPlugin.loader,
+            "postcss-loader",
+            "css-loader",
+            "sass-loader",
+          ], // 最后一个loader,就是上面最左边的loader一定要返回一个js脚本
         },
         {
           test: /\.(jpg|png|bmp|gif|svg)$/,
