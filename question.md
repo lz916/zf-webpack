@@ -149,3 +149,10 @@ eslint-config-aribnb
 ### 提取css
 
 * mini-css-extract-plugin 插件 在build用
+
+
+## Hash
+
+* 工程级别的hash,每修改任何一个文件，所有的文件名都会发生改变，每次webpack构建时生成一个唯一的hash
+* chunkHash 会根据不同的入口文件，进行依赖文件解析，构建对应的hash值,来源于同一个chunk,则hash值就一样，
+* contentHash 只有文件内容改变了 hash值才变，文件内容相同，hash值就一样, 最可靠 但是性能最差

@@ -14,10 +14,11 @@ module.exports = () => {
     devtool: false,
     entry: {
       main: "./src/index.js",
+      vendor: "lodash",
     },
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "main.js",
+      filename: "[name].[contenthash:8].js",
     },
     watch: true, // 开启监控模式,
     watchOptions: {
@@ -55,9 +56,9 @@ module.exports = () => {
       //   },
       // },
     },
-    externals: {
-      loadsh: "_", //如果在模块内部引用过了loadsh这个模块，会从window._上取值
-    },
+    // externals: {
+    //   lodash: "_", //如果在模块内部引用过了loadsh这个模块，会从window._上取值
+    // },
     module: {
       rules: [
         {
@@ -83,7 +84,7 @@ module.exports = () => {
             {
               loader: "url-loader", // 可以把一些肖图片变成base64字符串，内嵌再页面中
               options: {
-                name: `[hash:10].[ext]`,
+                name: `[contenthash:10].[ext]`,
                 esModule: false,
                 limit: 8 * 1024,
                 outputPath: "images",
@@ -99,7 +100,7 @@ module.exports = () => {
         //     {
         //       loader: "url-loader", // 可以把一些肖图片变成base64字符串，内嵌再页面中
         //       options: {
-        //         name: `[hash:10].[ext]`,
+        //         name: `[contenthash:10].[ext]`,
         //         esModule: false,
         //         limit: 8 * 1024,
         //       },
@@ -162,7 +163,7 @@ module.exports = () => {
         cleanOnceBeforeBuildPatterns: ["**/*"],
       }),
       new miniCssExtractPlugin({
-        filename: "css/[name].css",
+        filename: "css/[name].[contenthash:8].css",
       }),
       // 不再让webpack生成sourcemap
       // new webpack.SourceMapDevToolPlugin({

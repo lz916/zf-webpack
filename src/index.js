@@ -44,8 +44,9 @@ require("loadsh");
 console.log(_.join(["a, b, c"], "@"));
 
 require("./index.css");
+console.log(123);
 
-const img = new Image();
-const imgSrc = require("./images/img.png");
-img.src = imgSrc;
-document.body.appendChild(img);
+// const img = new Image();
+// const imgSrc = require("./images/img.png");
+// img.src = imgSrc;
+// document.body.appendChild(img);
