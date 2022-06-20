@@ -10,6 +10,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%"
+    ]
+  }, 
   "dependencies": {
     "html-webpack-plugin": "^5.5.0",
     "loadsh": "^0.0.4",
