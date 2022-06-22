@@ -50,3 +50,5 @@ console.log(123);
 // const imgSrc = require("./images/img.png");
 // img.src = imgSrc;
 // document.body.appendChild(img);
+
+const arrow = () => {};

@@ -156,3 +156,27 @@ eslint-config-aribnb
 * 工程级别的hash,每修改任何一个文件，所有的文件名都会发生改变，每次webpack构建时生成一个唯一的hash
 * chunkHash 会根据不同的入口文件，进行依赖文件解析，构建对应的hash值,来源于同一个chunk,则hash值就一样，
 * contentHash 只有文件内容改变了 hash值才变，文件内容相同，hash值就一样, 最可靠 但是性能最差
+
+css-loader内置了importLoader参数
+less-loader 内置了@import的处理
+
+
+## 压缩JS，CSS和HTML
+
+* optimize-css-assets-webpack-plugin 是一个优化和压缩css资源的插件
+* terser-webpack-plugin 是一个优化和压缩JS资源的插件
+* image-webpack-loader 对图片进行压缩和优化 // 用处不大，一般有专门的压缩工具
+
+webpack5需不需要配optimization？
+mode=production css js html默认会自动压缩
+
+安装node_modules 慢
+模块从网上下载下来，放在C盘，然后拷贝到当前目录中
+
+## babel-polyfill
+
+* Babel 默认只转换新的Javascript语法，而不转换新的Api，比如Set,Map,Promise等全局对象
+* babel-polyfill是通过向全局对象和内置对象的prototype上添加方法实现，比如运行环境中不支持Array.Prototype.find方法，引入polyfill，我们就可以使用es6来编写，但是确定是会造成全局空间污染
+* @babel/@babel/preset-env为每一个环境的预设
+* @babel/preset-env默认支持语法转化
+* useBuiltIns 如果不设置 @babel/preset-env 只转行新的语法，不转行API

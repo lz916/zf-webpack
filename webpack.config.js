@@ -7,10 +7,17 @@ const webpack = require("webpack");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const htmlWebpackExternalsPlugin = require("html-webpack-externals-plugin");
 const miniCssExtractPlugin = require("mini-css-extract-plugin");
+const optimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
+const terserWebpackPlugin = require("terser-webpack-plugin");
 module.exports = () => {
   return {
     // console.log(`env=${env}`)
-    mode: process.env.NODE_ENV,
+    // mode: process.env.NODE_ENV,
+    mode: "development",
+    // optimization: {
+    //   minimize: true, // 启用最小化
+    //   minimizer: [new terserWebpackPlugin()],
+    // },
     devtool: false,
     entry: {
       main: "./src/index.js",
@@ -126,7 +133,15 @@ module.exports = () => {
           use: {
             loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"],
+              presets: [
+                [
+                  "@babel/preset-env",
+                  {
+                    useBuiltIns: false,
+                  },
+                ],
+                "@babel/preset-react",
+              ],
               plugins: [
                 ["@babel/plugin-proposal-decorators", { legacy: true }],
                 ["@babel/plugin-proposal-class-properties", { loose: true }],
@@ -156,6 +171,11 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: "./src/index.html",
+        minify: {
+          // 压缩html
+          collapseInlineTagWhitespace: true,
+          removeComments: true,
+        },
       }),
       new DefinePlugin({
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -172,6 +192,7 @@ module.exports = () => {
         // 打包前把目录清口
         cleanOnceBeforeBuildPatterns: ["**/*"],
       }),
+      new optimizeCssAssetsWebpackPlugin(), // 压缩Css
       new miniCssExtractPlugin({
         filename: "css/[name].[contenthash:8].css",
       }),
