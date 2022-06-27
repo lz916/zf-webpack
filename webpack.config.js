@@ -21,7 +21,7 @@ module.exports = () => {
     devtool: false,
     entry: {
       main: "./src/index.js",
-      vendor: "lodash",
+      // vendor: "lodash",
     },
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -135,14 +135,23 @@ module.exports = () => {
             options: {
               presets: [
                 [
-                  "@babel/preset-env",
-                  {
-                    useBuiltIns: false,
-                  },
+                  "@babel/preset-env", // 只转换语法，不转换Api和方法
+                  // {
+                  //   useBuiltIns: "usage",
+                  //   corejs: 2, // core-js是腻子的实现, 2或者3
+                  // },
                 ],
                 "@babel/preset-react",
               ],
               plugins: [
+                [
+                  "@babel/plugin-transform-runtime", // 当使用es6方法的内置对象的时候会自动引入babel-runtime/core-js
+                  {
+                    corejs: 2, // 配置corejs可以转换api和方法
+                    helpers: false,
+                    regenerator: false,
+                  },
+                ],
                 ["@babel/plugin-proposal-decorators", { legacy: true }],
                 ["@babel/plugin-proposal-class-properties", { loose: true }],
               ],

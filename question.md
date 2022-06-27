@@ -180,3 +180,53 @@ mode=production css js html默认会自动压缩
 * @babel/@babel/preset-env为每一个环境的预设
 * @babel/preset-env默认支持语法转化
 * useBuiltIns 如果不设置 @babel/preset-env 只转行新的语法，不转行API
+
+### useBuiltIns
+
+  * false：不对polyfill做操作，如果引用了@babel/polyfill，则无视配置的浏览器兼容，应用所有的polyfill
+        * 手工引入@babel/polyfill,全量引入@babel/polyfill 不考虑你兼容的浏览器版本， 不考虑配置得brwoserlist
+  * entry: 根据配置得浏览器兼容版本，引入浏览器不兼容的polyfill，需要再入口文件里手动添加import @babel/polyfill,会自动根据browserslist替换成浏览器不兼容的所有polyfill
+  * usage: 会根据配置的浏览器兼容，以及你代码中用到的API进行polyfill，实现了按需添加，polyfill会自动按需添加，不需要手动引入@babel/polyfill
+
+preset
+core-js@2
+core-js@3
+
+plugin-transform-runtime
+@babel/runtime-corejs2
+@babel/runtime-corejs3
+
+helpers 移除内联的babel helpers 并替换为babel/runtime/helpers
+
+如何选择最合适的配置
+* babel-runtime 适合在组件和类库中使用 局部引入，不污染全局环境
+* babel-polyfill 适合在业务项目中使用 不怕污染全局
+* 局部引入优点不污染全局，缺点 不增加文件体积大小
+* 全局引入缺点不污染全局，优点不增加文件体积大小
+
+### toStringTag
+* Symbol.toStringTag 是一个内置symbol，它通常作为对象的属性键使用，对应的属性值应该为字符串类型，这个字符串用来标识该对象的自定义类型标签
+* 通常只有内置的Object.prototype.toString()方法会去读取整个标签并把它宝航在自己的返回值里
+
+### 打包的文件分析
+
+```javascript
+var modules = {
+    './src/title.js': (module) => {
+        module.exports = 'title'
+    }
+}
+
+var cache = {}
+function require(moduleId) {
+    var cachedModule = cache[moduleId]
+    if (cachedModule !== undefined) {
+        return cachedModule.exports
+    }
+    var module = cache[moduleId] = {
+        exports: {}
+    }
+    modules[moduleId](module, module.exports, require)
+    return cachedModule.exports
+}
+```
