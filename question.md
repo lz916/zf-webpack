@@ -230,3 +230,5 @@ function require(moduleId) {
     return cachedModule.exports
 }
 ```
+
+* 每一个异步引入都会分割这一个js,这也是Vue,React路由懒加载的原理

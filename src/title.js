@@ -1,3 +1,2 @@
-export default "liaozhen";
-
-export const age = "28";
+import name from "./name";
+export default "title" + name;

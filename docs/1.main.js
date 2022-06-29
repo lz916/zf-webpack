@@ -32,7 +32,7 @@ function require(moduleId) {
   if (cachedModule !== undefined) {
     return cache[moduleId];
   }
-  let module = cache
+  let module = cache;
   modules[moduleId](module, module.exports, require);
-  return module.exports
+  return module.exports;
 }
